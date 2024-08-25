@@ -17,23 +17,24 @@ cost_basis = st.number_input('Cost Basis', format = '%0.2f', help = 'The cost ba
 
 recovery_period = st.selectbox('Recovery Period (Years)', (10, 15, 27.5, 40))
 
-def depreciation(cost_basis, recovery_period):
-    annual_depreciation = cost_basis / recovery_period
+def depreciation(cost, period):
+    global annual_depreciation, monthly_depreciation, annual_depreciation_percentage, monthly_depreciation_percentage
+    annual_depreciation = cost / period
     monthly_depreciation = annual_depreciation / 12
-    annual_depreciation_percentage = annual_depreciation / cost_basis
-    monthly_depreciation_percentage = monthly_depreciation / cost_basis
+    annual_depreciation_percentage = annual_depreciation / cost
+    monthly_depreciation_percentage = monthly_depreciation / cost
     return annual_depreciation, monthly_depreciation, annual_depreciation_percentage, monthly_depreciation_percentage
 
 depreciation(cost_basis, recovery_period)
 
-st.write('Annual depreciation allowance is: ' + {annual_depreciation})
+st.write('Annual depreciation allowance is: ' + str(annual_depreciation) + \
+         ' and monthly depreciation is ' + str(monthly_depreciation) + '.')
 
-# def total_periods(placed_in_service_date, cost_basis):
-#     placed_in_service_date.astype('float64')
-#     total_periods = placed_in_service_date * recovery_period
-#     print(total_periods)
+def periods(date, cost):
+    global total_periods
+    total_periods = recovery_period * 12
+    return total_periods
 
-# total_periods(placed_in_service_date, cost_basis)
-# type(placed_in_service_date)
+periods(placed_in_service_date, cost_basis)
 
-# print(total_periods)
+print(periods)
